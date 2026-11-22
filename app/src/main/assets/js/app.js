@@ -106,6 +106,7 @@ function render() {
   const root = stack[0].name;
   document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === root));
   fn(view, r.args || {});
+  if (window.onScreen) window.onScreen(r.name, root);
   window.scrollTo(0, 0);
   updateTop();
 }

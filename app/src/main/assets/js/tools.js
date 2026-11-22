@@ -24,6 +24,7 @@ function parseVal(s) {
 }
 
 const TOOLS = [
+  { id: 'calc', ic: '🧮', name: 'Calculator', desc: 'Understands k, m, µ, n, p and ∥ (parallel)' },
   { id: 'colour', ic: '🌈', name: 'Resistor colour code', desc: 'Bands → value' },
   { id: 'smd', ic: '⬛', name: 'SMD resistor code', desc: '103, 4702, 4R7, 01C → value' },
   { id: 'capc', ic: '🟫', name: 'Capacitor code', desc: '104 → 100 nF' },
@@ -38,7 +39,7 @@ A.SCREENS.tools = el => {
   A.setTitle('Tools');
   el.innerHTML = TOOLS.map(t => `<button class="list-item" data-t="${t.id}"><span class="ic">${t.ic}</span><span class="body"><b>${t.name}</b><small>${t.desc}</small></span><span class="end">›</span></button>`).join('') +
     `<p class="small muted">Tip: type values like <b>4k7</b>, <b>2.2M</b>, <b>100n</b> or <b>4R7</b>.</p>`;
-  on(el, '[data-t]', 'click', b => A.go('tool', { id: b.dataset.t }));
+  on(el, '[data-t]', 'click', b => b.dataset.t === 'calc' ? window.Calc.open() : A.go('tool', { id: b.dataset.t }));
 };
 A.SCREENS.tool = (el, { id }) => {
   const t = TOOLS.find(x => x.id === id); A.setTitle(t.name);
